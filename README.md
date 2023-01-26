@@ -1,10 +1,4 @@
 # startup
 Project for CS 260
 
-This is a change from my dev environment.
-
-This is a change from GitHub.
-
-Another change from GitHub.
-
-Another change from dev environment.
+The VS Code merge editor is useful. You can choose to accept changes from one side or the other, or both, or neither.
