@@ -5,4 +5,6 @@ This is a change from my dev environment.
 
 This is a change from GitHub.
 
+Another change from GitHub.
+
 Another change from dev environment.
