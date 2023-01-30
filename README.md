@@ -14,3 +14,9 @@ Key Features:
 
 ## Learning Notes
 The VS Code merge editor is useful. You can choose to accept changes from one side or the other, or both, or neither.
+
+IP:
+3.138.248.88
+
+SSH Command:
+ssh -i cs260/cs260.pem ubuntu@3.138.248.88
