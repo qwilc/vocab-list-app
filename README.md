@@ -63,3 +63,8 @@ ssh -i cs260/cs260.pem ubuntu@3.138.248.88
 | `svg`     | Scalable vector graphic content                                        |
 | `iframe`  | Inline frame of another HTML page                                      |
 
+(The HTML: Input CodePen has good examples of all the different input types, but here's how radio buttons work:
+<label for="radio1">radio1</label>
+<input type="radio" id="radio1" name="varRadio" value="radio1" checked />
+<label for="radio2">radio2</label>
+<input type="radio" id="radio2" name="varRadio" value="radio2" checked />
