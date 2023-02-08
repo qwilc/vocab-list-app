@@ -68,3 +68,7 @@ ssh -i cs260/cs260.pem ubuntu@3.138.248.88
 <input type="radio" id="radio1" name="varRadio" value="radio1" checked />
 <label for="radio2">radio2</label>
 <input type="radio" id="radio2" name="varRadio" value="radio2" checked />
+
+### CSS
+`div span { ... } 
+any span that is a child of a div will be styled
