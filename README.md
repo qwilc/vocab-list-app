@@ -74,6 +74,10 @@ Simon Deployment:
 Using this, submit button will take you to a different page:  
 <form method="get" action="play.html">...</form>
 
+Can use an svg as a button label instead of text  
+
+Can use "readonly" in an <input> tag
+
 ### CSS
 `div span { ... }`  
 any span that is a child of a div will be styled
