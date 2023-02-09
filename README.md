@@ -18,9 +18,11 @@ The VS Code merge editor is useful. You can choose to accept changes from one si
 IP:
 3.138.248.88
 
-SSH Command:
+SSH Command:  
 ssh -i cs260/cs260.pem ubuntu@3.138.248.88
 
+Simon Deployment:  
+./deployFiles.sh -k ../cs260.pem -h quincywilcox.click -s simon
 
 ### HTML
 ```html
@@ -68,6 +70,9 @@ ssh -i cs260/cs260.pem ubuntu@3.138.248.88
 <input type="radio" id="radio1" name="varRadio" value="radio1" checked />
 <label for="radio2">radio2</label>
 <input type="radio" id="radio2" name="varRadio" value="radio2" checked />
+
+Using this, submit button will take you to a different page:  
+<form method="get" action="play.html">...</form>
 
 ### CSS
 `div span { ... }`  
