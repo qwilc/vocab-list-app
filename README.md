@@ -83,3 +83,6 @@ Can use "readonly" in an <input> tag
 any span that is a child of a div will be styled
 
 `position: sticky` will cause an item to switch from relative to fixed once you scroll past a certain point. The item will slide up once you scroll past its parent class.
+
+Calculations!
+e.g. `calc(100vh - 110px)`
