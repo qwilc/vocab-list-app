@@ -6,6 +6,7 @@
     --block-color: powderblue;
     --footer-height: 30px;
     --header-height: 100px;
+    --icon-size: 20px;
 }
 
 body {
@@ -47,15 +48,30 @@ menu {
 
 main {
     flex: 1 calc(100vh - var(--header-height) - var(--footer-height));
+    padding-top: 100px;
 }
 
-#login {
-    margin-top: 100px;
-}
-
-#name {
+#name-input {
     margin: 1em auto;
     display: block;
+}
+
+#word-input {
+    position: absolute;
+    left:43vw;
+    right:43vw;
+}
+
+#icon {
+    position: relative;
+    left:10vw;
+    top: -5px;
+    font-size: var(--icon-size);
+}
+
+#notes {
+    width: 30vw;
+    height: 12vh;
 }
 
 footer {
