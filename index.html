@@ -6,25 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="main.css" />
 </head>
 <body>
-    <header>
-        <h1>App Title</h1>
+    <header class="container-fluid">
+        <nav class="navbar fixed-top">
+            <h1 class="navbar-brand">App Title</h1>
+        </nav>
     </header>
 
-    <main>
-        <h1>Welcome</h1>
-        <p>Please log in</p>
-        <form method="get" action="add-word.html">
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your Name">
-            <button type="submit">Login</button>
-        </form>
+    <main class="container-fluid text-center">
+        <div id="login">
+            <h1>Welcome</h1>
+            <p>Please log in</p>
+            <form method="get" action="add-word.html">
+                <input type="text" id="name" placeholder="Your Name">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div> 
     </main>
 
-    <footer>
-        <p>Quincy Wilcox</p>
+    <footer class="container-fluid">
+        <span>Quincy Wilcox</span>
         <a href=https://github.com/qwilc/startup>GitHub</a>
     </footer>
 </body>

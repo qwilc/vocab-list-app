@@ -46,7 +46,16 @@ menu {
 }
 
 main {
-    flex: 1 calc(100vh - var(--header-height) - var(--footer-height));;
+    flex: 1 calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+#login {
+    margin-top: 100px;
+}
+
+#name {
+    margin: 1em auto;
+    display: block;
 }
 
 footer {
