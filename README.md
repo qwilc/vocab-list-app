@@ -83,3 +83,18 @@ Can use "readonly" in an <input> tag
 any span that is a child of a div will be styled
 
 `position: sticky` will cause an item to switch from relative to fixed once you scroll past a certain point. The item will slide up once you scroll past its parent class.
+
+Calculations!
+e.g. `calc(100vh - 110px)`
+
+`justify-content` property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container
+`justify-self` property sets the way a box is justified inside its alignment container
+`justify-items` property defines the default `justify-self` for all items of the box
+
+`!important` used to override Bootstrap
+
+`vmin` and `vmax` find min/max of vh and vw
+
+`min(80vmin, 1000px)` minimum of two or more values
+
+`fr` represents a fraction of the leftover space in grid container
