@@ -7,6 +7,7 @@
     --footer-height: 30px;
     --header-height: 100px;
     --icon-size: 20px;
+    --word-input-width: 200px;
 }
 
 body {
@@ -56,20 +57,18 @@ main {
     display: block;
 }
 
-#word-input {
+#icon-btn {
     position: absolute;
-    left:43vw;
-    right:43vw;
-}
-
-#icon {
-    position: relative;
-    left:10vw;
-    top: -5px;
+    left: calc(1em + 50vw + var(--word-input-width) / 2);
     font-size: var(--icon-size);
 }
 
+#word-input {
+    width: 200px;
+}
+
 #notes {
+    margin: 1em;
     width: 30vw;
     height: 12vh;
 }
