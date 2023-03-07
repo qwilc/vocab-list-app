@@ -100,16 +100,16 @@ e.g. `calc(100vh - 110px)`
 `fr` represents a fraction of the leftover space in grid container
 
 ### JavaScript
-Store a key-value pair in browser's local storage 
-`localStorage.setItem("key", value);`
-Retrieve value from local storage
-`localStorage.getItem("key");
+Store a key-value pair in browser's local storage  
+`localStorage.setItem("key", value);`  
+Retrieve value from local storage  
+`localStorage.getItem("key");`
 
-Get the current URL or navigate to a new URL
-`window.location.href
-window.location.href = new_url`
+Get the current URL or navigate to a new URL  
+`window.location.href`  
+`window.location.href = new_url`
 
-Get current date and time, and return just the date as a string
+Get current date and time, and return just the date as a string  
 `new Date().toLocaleDateString();`
 
 Put <script> tag at bottom if JavaScript references HTML elements during initialization
