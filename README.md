@@ -87,9 +87,9 @@ any span that is a child of a div will be styled
 Calculations!
 e.g. `calc(100vh - 110px)`
 
-`justify-content` property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container
-`justify-self` property sets the way a box is justified inside its alignment container
-`justify-items` property defines the default `justify-self` for all items of the box
+`justify-content` property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container  
+`justify-self` property sets the way a box is justified inside its alignment container  
+`justify-items` property defines the default `justify-self` for all items of the box  
 
 `!important` used to override Bootstrap
 
@@ -108,9 +108,9 @@ content, padding, border, margin
 ### JavaScript
 
 #### Functions
-const f = (x) => {}
-function f(x) {}
-const f = function(x) {}
+const f = (x) => {}  
+function f(x) {}  
+const f = function(x) {}  
 
 #### Array Functions
 | Function | Meaning                                                   | Example                       |
