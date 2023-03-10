@@ -42,7 +42,7 @@
         </div>
 
         <h1>Add New Word</h1>
-        <form>
+        <div>
             <div>
                 <input type="text" id="word-input" placeholder="New Word">
                 <button type="button" class="btn" id="icon-btn"><span id="icon">💙</span></button>
@@ -52,9 +52,14 @@
                 <textarea placeholder="Write notes here" id="notes"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary" onclick=saveWord()>Save</button>
             
-        </form>
+        </div>
+
+        <div>
+            <span id="display"></span>
+        </div>
+
     </main>
 
     <footer class="container-fluid">
