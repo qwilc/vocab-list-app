@@ -2,10 +2,14 @@ username = localStorage.getItem('username');
 usernameEl = document.querySelector("#username");
 usernameEl.textContent = username ?? 'Anonymous';
 
+// TODO: maybe use objects or something
+// TODO: Would it be better to have each user be a different key in localStorage? Does it really matter at this point?
+
 function saveWord() {
 
     // TODO: verify that the word box is not empty
     // TODO: maybe break up the code across functions
+    // TODO: maybe force words to be unique (case-insensitive)
 
     wordEl = document.querySelector("#word-input");
     console.log(wordEl);
@@ -25,7 +29,6 @@ function saveWord() {
     }
     else {
         stored_words = JSON.parse(stored_words);
-        console.log(stored_words)
     }
     
     if(!stored_words[username]) {
@@ -37,7 +40,9 @@ function saveWord() {
 
     stored_words_json = JSON.stringify(stored_words);
     localStorage.setItem("words", stored_words_json);
-    // document.querySelector("#display").innerHTML = localStorage.getItem("words");
+
+    wordEl.value = "";
+    notesEl.value = "";
 }
 
 icon_idx = 0;
