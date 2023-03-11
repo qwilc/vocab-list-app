@@ -87,9 +87,9 @@ any span that is a child of a div will be styled
 Calculations!
 e.g. `calc(100vh - 110px)`
 
-`justify-content` property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container
-`justify-self` property sets the way a box is justified inside its alignment container
-`justify-items` property defines the default `justify-self` for all items of the box
+`justify-content` property defines how the browser distributes space between and around content items along the main-axis of a flex container, and the inline axis of a grid container  
+`justify-self` property sets the way a box is justified inside its alignment container  
+`justify-items` property defines the default `justify-self` for all items of the box  
 
 `!important` used to override Bootstrap
 
@@ -98,3 +98,74 @@ e.g. `calc(100vh - 110px)`
 `min(80vmin, 1000px)` minimum of two or more values
 
 `fr` represents a fraction of the leftover space in grid container
+
+Import a Google Font:  
+`@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');`
+
+Going inside to outside:  
+content, padding, border, margin
+
+### JavaScript
+
+#### Functions
+const f = (x) => {}  
+function f(x) {}  
+const f = function(x) {}  
+
+#### Array Functions
+| Function | Meaning                                                   | Example                       |
+| -------- | --------------------------------------------------------- | ----------------------------- |
+| push     | Add an item to the end of the array                       | `a.push(4)`                   |
+| pop      | Remove an item from the end of the array                  | `x = a.pop`                   |
+| slice    | Return a sub-array                                        | `a.slice(1,-1)`               |
+| sort     | Run a function sort an array in place                     | `a.sort((a,b) => b-a)`        |
+| values   | Creates an iterator for use with a `for of` loop          | `for (i of a.values()) {...}` |
+| find     | Find the first item satisfied by a test function          | `a.find(i => i < 2)`          |
+| forEach  | Run a function on each array item                         | `a.forEach(console.log)`      |
+| reduce   | Run a function to reduce each array item to a single item | `a.reduce((a, c) => a + c)`   |
+| map      | Run a function to map an array to a new array             | `a.map(i => i+i)`             |
+| filter   | Run a function to remove items                            | `a.filter(i => i%2)`          |
+| every    | Run a function to test if all items match                 | `a.every(i => i < 3)`         |
+| some     | Run a function to test if any items match                 | `a.some(i => 1 < 1)`          |
+
+#### Regular Expressions
+const re = /pattern/flags;
+OR
+const re = new RegExp("pattern", "flags");
+
+`g` flag indicates that the regular expression should be tested against all possible matches in a string
+`i` flag indicates that case should be ignored
+`m` flag indicates that a multiline input string should be treated as multiple lines
+
+```js
+const petRegex = /(dog)|(cat)|(bird)/gim;
+const text = 'Both cats and dogs are pets, but not rocks.';
+
+text.match(petRegex);
+// RETURNS: ['cat', 'dog']
+
+text.replace(petRegex, 'animal');
+// RETURNS: Both animals and animals are pets, but not rocks.
+
+petRegex.test(text);
+// RETURNS: true
+```
+
+#### DOM
+`querySelector()` returns first element matching the selector(s) or null
+`querySelectorAll()` returns a static list of all elements matching the selector(s)
+
+#### Simon JavaScript notes
+Store a key-value pair in browser's local storage  
+`localStorage.setItem("key", value);`  
+Retrieve value from local storage  
+`localStorage.getItem("key");`
+
+Get the current URL or navigate to a new URL  
+`window.location.href`  
+`window.location.href = new_url`
+
+Get current date and time, and return just the date as a string  
+`new Date().toLocaleDateString();`
+
+Put <script> tag at bottom if JavaScript references HTML elements during initialization
