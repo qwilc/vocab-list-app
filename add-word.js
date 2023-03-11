@@ -1,10 +1,11 @@
-usernameEl = document.querySelector("#username");
 username = localStorage.getItem('username');
+usernameEl = document.querySelector("#username");
 usernameEl.textContent = username ?? 'Anonymous';
 
 function saveWord() {
 
-    // Verify that there is something in the word box
+    // TODO: verify that the word box is not empty
+    // TODO: maybe break up the code across functions
 
     wordEl = document.querySelector("#word-input");
     console.log(wordEl);
@@ -36,15 +37,17 @@ function saveWord() {
 
     stored_words_json = JSON.stringify(stored_words);
     localStorage.setItem("words", stored_words_json);
-    document.querySelector("#display").innerHTML = localStorage.getItem("words");
-    
-
-    // get existing storage 
-    // get existing storage for this user
-    // if it doesn't exist, just add this word in a list
-    // otherwise, add this word to the end of the list
-
+    // document.querySelector("#display").innerHTML = localStorage.getItem("words");
 }
 
-// Pressing icon button changes icon 
-// (or actually, maybe use a dropdown? or allow any single character? can it both be free response and give suggestions? Regex can limit to a single character right?)
+icon_idx = 0;
+icons_list = ["❤️","💛","💙"];
+iconEl = document.querySelector("#icon");
+iconEl.textContent = icons_list[icon_idx];
+
+function switchIcon() {
+    // TODO: maybe use a dropdown with the option for custom character instead
+    icon_idx++;
+    icon_idx = icon_idx % icons_list.length;
+    iconEl.textContent = icons_list[icon_idx];
+}
