@@ -152,8 +152,17 @@ petRegex.test(text);
 ```
 
 #### DOM
-`querySelector()` returns first element matching the selector(s) or null
-`querySelectorAll()` returns a static list of all elements matching the selector(s)
+`querySelector()` returns first element matching the selector(s) or null  
+`querySelectorAll()` returns a static list of all elements matching the selector(s)  
+
+Pass in a CSS tag to create a new element  
+`document.createElement()`
+
+`parentEl.appendChild(childEl)`
+
+use `.value` for inputs instead of `.textContent`
+
+`JSON.stringify()`/`JSON.parse()`
 
 #### Simon JavaScript notes
 Store a key-value pair in browser's local storage  
