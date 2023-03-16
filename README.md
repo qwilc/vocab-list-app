@@ -178,3 +178,11 @@ Get current date and time, and return just the date as a string
 `new Date().toLocaleDateString();`
 
 Put <script> tag at bottom if JavaScript references HTML elements during initialization
+
+### Node.js  
+1. Create your project directory
+1. Initialize it for use with NPM by running `npm init -y`
+1. ⚠ Make sure `.gitignore` file contains `node-modules`
+1. Install any desired packages with `npm install <package name here>`
+1. Add `require('<package name here>')` to your JavaScript code
+1. Run your code with `node main.js`
