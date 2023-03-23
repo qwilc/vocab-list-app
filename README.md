@@ -186,3 +186,41 @@ Put <script> tag at bottom if JavaScript references HTML elements during initial
 1. Install any desired packages with `npm install <package name here>`
 1. Add `require('<package name here>')` to your JavaScript code
 1. Run your code with `node main.js`
+
+### Express
+npm install express  
+
+Create an express application:  
+`const app = express()`
+
+Built-in static file hosting (serves up static files in `public`)  
+`app.use(express.static('public'));`
+
+Create a router, handles endpoints beginning with /api  
+```var apiRouter = express.Router();
+app.use(`/api`, apiRouter);```
+
+Listen on a port  
+`app.listen(port, function)`
+
+Handles a GET request to /api/scores  
+```apiRouter.get('/scores', (_req, res) => {
+  res.send(scores);
+});```
+
+JavaScript to send the GET request  
+```const response = await fetch('/api/scores');
+scores = await response.json();```
+
+Handles a POST request to /api/score
+```apiRouter.post('/score', (req, res) => {
+  scores = updateScores(req.body, scores);
+  res.send(scores);
+});```
+
+JavaScript to send the POST request
+```const response = await fetch('/api/score', {
+  method: 'POST',
+  headers: { 'content-type': 'application/json' },
+  body: JSON.stringify(newScore),
+});```
