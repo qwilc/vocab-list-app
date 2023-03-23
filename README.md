@@ -197,30 +197,40 @@ Built-in static file hosting (serves up static files in `public`)
 `app.use(express.static('public'));`
 
 Create a router, handles endpoints beginning with /api  
-```var apiRouter = express.Router();
-app.use(`/api`, apiRouter);```
+```
+  var apiRouter = express.Router();
+app.use(`/api`, apiRouter);
+  ```
 
 Listen on a port  
 `app.listen(port, function)`
 
 Handles a GET request to /api/scores  
-```apiRouter.get('/scores', (_req, res) => {
+```
+apiRouter.get('/scores', (_req, res) => {
   res.send(scores);
-});```
+});
+  ```
 
 JavaScript to send the GET request  
-```const response = await fetch('/api/scores');
-scores = await response.json();```
+```
+const response = await fetch('/api/scores');
+scores = await response.json();
+  ```
 
 Handles a POST request to /api/score
-```apiRouter.post('/score', (req, res) => {
+```
+apiRouter.post('/score', (req, res) => {
   scores = updateScores(req.body, scores);
   res.send(scores);
-});```
+});
+  ```
 
 JavaScript to send the POST request
-```const response = await fetch('/api/score', {
+```
+const response = await fetch('/api/score', {
   method: 'POST',
   headers: { 'content-type': 'application/json' },
   body: JSON.stringify(newScore),
-});```
+});
+  ```
