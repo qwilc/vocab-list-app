@@ -234,3 +234,15 @@ const response = await fetch('/api/score', {
   body: JSON.stringify(newScore),
 });
   ```
+  
+### MongoDB
+`const {MongoClient} = require('mongodb');`
+
+Get environment variables:  
+`process.env.ENVVAR`
+
+Create database:
+```
+const client = new MongoClient(url);
+const scoreCollection = client.db('db name').collection('collection name');
+```
