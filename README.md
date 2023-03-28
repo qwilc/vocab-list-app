@@ -246,3 +246,36 @@ Create database:
 const client = new MongoClient(url);
 const scoreCollection = client.db('db name').collection('collection name');
 ```
+
+### Simon Login
+#### index.html
+input fields for email and password (type = text and type = password)  
+Login button and Create button with respective on-click functions  
+
+Separate division with HTML for when already authenticated (`style="display: none"`)  
+Play/Logout options
+
+Another division with the pop-up that displays with errors
+
+#### login.js
+anonymous async function checks whether user is authenticated - sets the display for the login/already logged in page
+
+login and create use the same code to send the request, just to different API endpoints
+
+if response has error status, create bootstrap.Modal object and display it
+
+#### index.js
+The Create endpoint checks if the user already exists in the database, returns a 409 error if so  
+Otherwise, creates a new user and sends a cookie with the authtoken in the response
+
+Login endpoint checks whether the user exists and whether the password matches the one in the database
+If either is untrue, sends 401 Unauthorized error
+Otherwise, sends back a cookie with the user's authtoken in the response
+
+Logout endpoint clears the authtoken cookie
+
+Separate secure API router for post requests to /score and get requests to /scores that checks the authtoken
+
+
+
+
