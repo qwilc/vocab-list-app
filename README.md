@@ -276,6 +276,39 @@ Logout endpoint clears the authtoken cookie
 
 Separate secure API router for post requests to /score and get requests to /scores that checks the authtoken
 
-
-
-
+### Simon Websocket
+#### play.js
+  A websocket is stored as an attribute of the Game class and configured once a Game is created (i.e. when play page opens)
+  
+  http -> ws protocol  
+  https -> wss protocol  
+  `const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';`  
+  
+  Set up websocket connection:
+    this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+  
+  Set these to the function that should be executed on open/close
+  `this.socket.onopen`
+  `this.socket.onclose`
+ 
+  Determines what will happen when a message is received:
+  `this.socket.onmessage = async (event) => {const msg = JSON.parse(await event.data.text()); ... }`
+  
+  Send and event object with whatever data you previously set it with:
+  `this.socket.send(JSON.stringify(event));`
+  
+#### peerProxy.js
+  Contains a peer proxy class with a constructor that sets up the WS server
+  Set `noServer` to true when creating the WebSocketServer and handle upgrade protocol
+  Each time a new connection is made, add it to a list
+  Ping connections every 10 seconds to see if they chould be kept
+  
+  Behavior when message is received (forward to every connection in the list except the one with connection.id equal to sender)
+  `ws.on('message', function message(data) {...})`
+  
+Behavior when connection is closed (remove it from list in this case)
+      `ws.on('close', () => {...});`
+  
+Behavior on pong message from client (mark as alive in this case)
+  ws.on('pong', () => {...});
+  
