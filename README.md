@@ -285,7 +285,7 @@ Separate secure API router for post requests to /score and get requests to /scor
   `const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';`  
   
   Set up websocket connection:  
-    this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    ``this.socket = new WebSocket(\`${protocol}://${window.location.host}/ws`);``
   
   Set these to the function that should be executed on open/close  
   `this.socket.onopen`  
@@ -306,9 +306,9 @@ Separate secure API router for post requests to /score and get requests to /scor
   Behavior when message is received (forward to every connection in the list except the one with connection.id equal to sender)
   `ws.on('message', function message(data) {...})`
   
-Behavior when connection is closed (remove it from list in this case)
+Behavior when connection is closed (remove it from list in this case)  
       `ws.on('close', () => {...});`
   
-Behavior on pong message from client (mark as alive in this case)
-  ws.on('pong', () => {...});
+Behavior on pong message from client (mark as alive in this case)  
+  `ws.on('pong', () => {...});`
   
