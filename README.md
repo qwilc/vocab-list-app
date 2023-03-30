@@ -284,17 +284,17 @@ Separate secure API router for post requests to /score and get requests to /scor
   https -> wss protocol  
   `const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';`  
   
-  Set up websocket connection:
+  Set up websocket connection:  
     this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
   
-  Set these to the function that should be executed on open/close
-  `this.socket.onopen`
+  Set these to the function that should be executed on open/close  
+  `this.socket.onopen`  
   `this.socket.onclose`
  
-  Determines what will happen when a message is received:
+  Determines what will happen when a message is received:  
   `this.socket.onmessage = async (event) => {const msg = JSON.parse(await event.data.text()); ... }`
   
-  Send and event object with whatever data you previously set it with:
+  Send and event object with whatever data you previously set it with:  
   `this.socket.send(JSON.stringify(event));`
   
 #### peerProxy.js
