@@ -85,3 +85,8 @@ footer a {
 h1 {
     font-family: 'Merriweather', 'Georgia', 'serif'; 
 }
+
+#quote {
+    margin-top: -50px;
+    margin-bottom: 50px;
+}
