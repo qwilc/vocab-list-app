@@ -1,37 +1,54 @@
 const username = localStorage.getItem("username");
 const tableBodyEl = document.querySelector('#words');
 
-function loadWords() {
 
-    const words_text = localStorage.getItem("words");
+async function loadWords() {
+    let words = [];
 
-    if(words_text) {
-        words = JSON.parse(words_text);
-        if(words[username]) {
-            display_words(words[username]);
-            return;
+    try {
+        const response = await fetch('/api/words', {
+            method: 'GET',
+            headers: 'application/json',
+            body: {name: username}
+        });
+
+        words = await response.json();
+    }
+    catch {
+        console.log("Error getting words, using locally stored data");
+
+        const words_text = localStorage.getItem("words");
+
+        console.log(words_text);
+
+        if(words_text) {
+            words = JSON.parse(words_text);
+            display_words(words);
         }
     }
-
-    tableBodyEl.innerHTML = '<tr><td colSpan=3>Words you add will appear here</td></tr>';
 }
 
 function display_words(words) {
-    for(word of words) {
-        const wordTdEl = document.createElement('td');
-        const iconTdEl = document.createElement('td');
-        const notesTdEl = document.createElement('td');
-  
-        wordTdEl.textContent = word.word;
-        iconTdEl.textContent = word.icon;
-        notesTdEl.textContent = word.notes;
-  
-        const rowEl = document.createElement('tr');
-        rowEl.appendChild(wordTdEl);
-        rowEl.appendChild(iconTdEl);
-        rowEl.appendChild(notesTdEl);
-  
-        tableBodyEl.appendChild(rowEl);
+    if(words.length) {
+        for(word of words) {
+            const wordTdEl = document.createElement('td');
+            const iconTdEl = document.createElement('td');
+            const notesTdEl = document.createElement('td');
+    
+            wordTdEl.textContent = word.word;
+            iconTdEl.textContent = word.icon;
+            notesTdEl.textContent = word.notes;
+    
+            const rowEl = document.createElement('tr');
+            rowEl.appendChild(wordTdEl);
+            rowEl.appendChild(iconTdEl);
+            rowEl.appendChild(notesTdEl);
+    
+            tableBodyEl.appendChild(rowEl);
+        }
+    }
+    else {
+        tableBodyEl.innerHTML = '<tr><td colSpan=3>Words you add will appear here</td></tr>';
     }
 }
 

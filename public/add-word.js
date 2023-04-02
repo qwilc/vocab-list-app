@@ -1,11 +1,11 @@
-username = localStorage.getItem('username');
-usernameEl = document.querySelector("#username");
+let username = localStorage.getItem('username');
+const usernameEl = document.querySelector("#username");
 usernameEl.textContent = username ?? 'Anonymous';
 
-// TODO: maybe use objects or something
-// TODO: Would it be better to have each user be a different key in localStorage? Does it really matter at this point?
+// TODO: Would be nice if unsaved input persists across page switches 
+// (e.g. if you accidentally click a different page in the middle of creating a word)
 
-function saveWord() {
+async function saveWord() {
 
     // TODO: verify that the word box is not empty
     // TODO: maybe break up the code more
@@ -18,32 +18,49 @@ function saveWord() {
     notesEl = document.querySelector("#notes");
     notes_val = notesEl.value;
 
-    new_word = {word: word_val, icon: icon_val, notes: notes_val};
+    new_word = {
+        name: username, 
+        word: word_val, 
+        icon: icon_val, 
+        notes: notes_val
+    };
 
-    new_word_json = JSON.stringify(new_word);
+    try {
+        console.log("before fetch");
+        const response = await fetch('/api/add', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(new_word)
+        });
+        console.log("after fetch");
 
-    stored_words = localStorage.getItem("words");
-    if(!stored_words) {
-        stored_words = {};
+        const words = await response.json();
+        localStorage.setItem('words', JSON.stringify(words));
     }
-    else {
-        stored_words = JSON.parse(stored_words);
+    catch {
+        // Saves words locally in case of error
+        // TODO: Ideally, if there was an error, the words only saved locally would be added later
+        console.log("Error storing new word, saving locally");
+        updateWordsLocal(new_word);
     }
+    finally {
+        console.log("Finished saving word");
+        wordEl.value = "";
+        notesEl.value = "";
+    }
+}
+
+function updateWordsLocal(new_word) {
+    let words = [];
+    const wordsText = localStorage.getItem('words');
     
-    if(!stored_words[username]) {
-        stored_words[username] = [new_word];
-    }
-    else {
-        stored_words[username].push(new_word);
+    if (wordsText) {
+      words = JSON.parse(wordsText);
     }
 
-    stored_words_json = JSON.stringify(stored_words);
-    localStorage.setItem("words", stored_words_json);
+    words.push(new_word);
 
-    wordEl.value = "";
-    notesEl.value = "";
-
-    // TODO: Toast/success message
+    localStorage.setItem('words', JSON.stringify(words));
 }
 
 icon_idx = 0;
