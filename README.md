@@ -178,3 +178,137 @@ Get current date and time, and return just the date as a string
 `new Date().toLocaleDateString();`
 
 Put <script> tag at bottom if JavaScript references HTML elements during initialization
+
+### Node.js  
+1. Create your project directory
+1. Initialize it for use with NPM by running `npm init -y`
+1. ⚠ Make sure `.gitignore` file contains `node-modules`
+1. Install any desired packages with `npm install <package name here>`
+1. Add `require('<package name here>')` to your JavaScript code
+1. Run your code with `node main.js`
+
+### Express
+npm install express  
+
+Create an express application:  
+`const app = express()`
+
+Built-in static file hosting (serves up static files in `public`)  
+`app.use(express.static('public'));`
+
+Create a router, handles endpoints beginning with /api  
+```
+  var apiRouter = express.Router();
+app.use(`/api`, apiRouter);
+  ```
+
+Listen on a port  
+`app.listen(port, function)`
+
+Handles a GET request to /api/scores  
+```
+apiRouter.get('/scores', (_req, res) => {
+  res.send(scores);
+});
+  ```
+
+JavaScript to send the GET request  
+```
+const response = await fetch('/api/scores');
+scores = await response.json();
+  ```
+
+Handles a POST request to /api/score
+```
+apiRouter.post('/score', (req, res) => {
+  scores = updateScores(req.body, scores);
+  res.send(scores);
+});
+  ```
+
+JavaScript to send the POST request
+```
+const response = await fetch('/api/score', {
+  method: 'POST',
+  headers: { 'content-type': 'application/json' },
+  body: JSON.stringify(newScore),
+});
+  ```
+  
+### MongoDB
+`const {MongoClient} = require('mongodb');`
+
+Get environment variables:  
+`process.env.ENVVAR`
+
+Create database:
+```
+const client = new MongoClient(url);
+const scoreCollection = client.db('db name').collection('collection name');
+```
+
+### Simon Login
+#### index.html
+input fields for email and password (type = text and type = password)  
+Login button and Create button with respective on-click functions  
+
+Separate division with HTML for when already authenticated (`style="display: none"`)  
+Play/Logout options
+
+Another division with the pop-up that displays with errors
+
+#### login.js
+anonymous async function checks whether user is authenticated - sets the display for the login/already logged in page
+
+login and create use the same code to send the request, just to different API endpoints
+
+if response has error status, create bootstrap.Modal object and display it
+
+#### index.js
+The Create endpoint checks if the user already exists in the database, returns a 409 error if so  
+Otherwise, creates a new user and sends a cookie with the authtoken in the response
+
+Login endpoint checks whether the user exists and whether the password matches the one in the database
+If either is untrue, sends 401 Unauthorized error
+Otherwise, sends back a cookie with the user's authtoken in the response
+
+Logout endpoint clears the authtoken cookie
+
+Separate secure API router for post requests to /score and get requests to /scores that checks the authtoken
+
+### Simon Websocket
+#### play.js
+  A websocket is stored as an attribute of the Game class and configured once a Game is created (i.e. when play page opens)
+  
+  http -> ws protocol  
+  https -> wss protocol  
+  `const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';`  
+  
+  Set up websocket connection:  
+    ``this.socket = new WebSocket(\`${protocol}://${window.location.host}/ws`);``
+  
+  Set these to the function that should be executed on open/close  
+  `this.socket.onopen`  
+  `this.socket.onclose`
+ 
+  Determines what will happen when a message is received:  
+  `this.socket.onmessage = async (event) => {const msg = JSON.parse(await event.data.text()); ... }`
+  
+  Send and event object with whatever data you previously set it with:  
+  `this.socket.send(JSON.stringify(event));`
+  
+#### peerProxy.js
+  Contains a peer proxy class with a constructor that sets up the WS server
+  Set `noServer` to true when creating the WebSocketServer and handle upgrade protocol
+  Each time a new connection is made, add it to a list
+  Ping connections every 10 seconds to see if they chould be kept
+  
+  Behavior when message is received (forward to every connection in the list except the one with connection.id equal to sender)
+  `ws.on('message', function message(data) {...})`
+  
+Behavior when connection is closed (remove it from list in this case)  
+      `ws.on('close', () => {...});`
+  
+Behavior on pong message from client (mark as alive in this case)  
+  `ws.on('pong', () => {...});`
+  
