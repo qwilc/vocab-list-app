@@ -8,11 +8,10 @@ usernameEl.textContent = username ?? 'Anonymous';
 function saveWord() {
 
     // TODO: verify that the word box is not empty
-    // TODO: maybe break up the code across functions
+    // TODO: maybe break up the code more
     // TODO: maybe force words to be unique (case-insensitive)
 
     wordEl = document.querySelector("#word-input");
-    console.log(wordEl);
     word_val = wordEl.value;
     iconEl = document.querySelector("#icon");
     icon_val = iconEl.textContent;
@@ -43,6 +42,8 @@ function saveWord() {
 
     wordEl.value = "";
     notesEl.value = "";
+
+    // TODO: Toast/success message
 }
 
 icon_idx = 0;
