@@ -6,11 +6,13 @@ async function loadWords() {
     let words = [];
 
     try {
+        console.log("before words fetch");
         const response = await fetch('/api/words', {
-            method: 'GET',
-            headers: 'application/json',
-            body: {name: username}
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({name: username})
         });
+        console.log("after words fetch");
 
         words = await response.json();
     }
@@ -23,8 +25,10 @@ async function loadWords() {
 
         if(words_text) {
             words = JSON.parse(words_text);
-            display_words(words);
         }
+    }
+    finally {
+        display_words(words);
     }
 }
 

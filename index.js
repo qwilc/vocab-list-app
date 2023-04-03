@@ -11,14 +11,18 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // getWords
-apiRouter.get('/words', (req, res) => {
+apiRouter.post('/words', (req, res) => {
+    console.log("words API endpoint");
+    console.log("name from req: " + req.body.name);
     let userWords = getUserWords(req.body.name, words);
     res.send(userWords);
 });
 
 // addWord
 apiRouter.post('/add', (req, res) => {
+    console.log("add API endpoint");
     let userWords = updateWords(req.body, words);
+    console.log(userWords);
     res.send(userWords);
 });
 
@@ -34,11 +38,14 @@ app.listen(port, () => {
 let words = []
 
 function getUserWords(name, words) {
+    console.log("name: " + name);
     let userWords = words.filter((word) => word.name == name);
+    console.log(words);
     return userWords;
 }
 
 function updateWords(newWord, words) {
+    console.log("newWord: " + newWord);
     words.push(newWord);
     return getUserWords(newWord.name, words);
 }
