@@ -10,7 +10,7 @@ async function loadWords() {
         const response = await fetch('/api/words', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({name: username})
+            body: JSON.stringify({username: username})
         });
         console.log("after words fetch");
 

@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const DB = require('./database.js');
 
 const port = process.argv.length > 2 ? process.argv[2] : 8080;
 
@@ -11,17 +12,19 @@ var apiRouter = express.Router();
 app.use('/api', apiRouter);
 
 // getWords
-apiRouter.post('/words', (req, res) => {
+// TODO: Need to get words by user, is that GET or POST?
+apiRouter.post('/words', async (req, res) => {
     console.log("words API endpoint");
-    console.log("name from req: " + req.body.name);
-    let userWords = getUserWords(req.body.name, words);
+    console.log("name from req: " + req.body.username);
+    const userWords = await DB.getList(req.body.username);
     res.send(userWords);
 });
 
 // addWord
-apiRouter.post('/add', (req, res) => {
+apiRouter.post('/add', async (req, res) => {
     console.log("add API endpoint");
-    let userWords = updateWords(req.body, words);
+    DB.addWord(req.body);
+    const userWords = await DB.getList(req.body.username);
     console.log(userWords);
     res.send(userWords);
 });
@@ -29,23 +32,8 @@ apiRouter.post('/add', (req, res) => {
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
-  });
+});
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
-
-let words = []
-
-function getUserWords(name, words) {
-    console.log("name: " + name);
-    let userWords = words.filter((word) => word.name == name);
-    console.log(words);
-    return userWords;
-}
-
-function updateWords(newWord, words) {
-    console.log("newWord: " + newWord);
-    words.push(newWord);
-    return getUserWords(newWord.name, words);
-}

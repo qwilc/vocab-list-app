@@ -19,7 +19,7 @@ async function saveWord() {
     notes_val = notesEl.value;
 
     new_word = {
-        name: username, 
+        username: username, 
         word: word_val, 
         icon: icon_val, 
         notes: notes_val
