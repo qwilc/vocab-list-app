@@ -33,8 +33,7 @@
                     <a class="nav-link active" href="about.html">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="(async () => await fetch('/auth/logout'))();" href="index.html">Logout</a>
-                    <button type="button" class="btn btn-primary" onclick="(async () => await fetch('/auth/logout'))();"></button>
+                    <a class="nav-link" onclick="(async () => await fetch(`/api/auth/logout`, { method: 'delete' }))();" href="index.html">Logout</a>
                 </li>
             </menu>
         </nav>
