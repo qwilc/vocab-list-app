@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { PeerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -35,7 +36,7 @@ apiRouter.post('/auth/register', async (req, res) => {
 
 });
 
-// 
+// Login an existing user
 apiRouter.post('/auth/login', async (req, res) => {
     const user = await DB.getUser(req.body.username);
     if (user) {
@@ -65,8 +66,22 @@ apiRouter.get('/user/:username', async (req, res) => {
     res.status(404).send({ msg: 'Unknown' });
   });
 
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+// FIXME: Sends correct status, but to be fancy, I want to add an error page
+secureApiRouter.use(async (req, res, next) => {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+});
+
 // get a user's list from database
-apiRouter.post('/words', async (req, res) => {
+secureApiRouter.post('/words', async (req, res) => {
     console.log("words API endpoint");
     console.log("name from req: " + req.body.username);
     const userWords = await DB.getList(req.body.username);
@@ -74,7 +89,7 @@ apiRouter.post('/words', async (req, res) => {
 });
 
 // add word to database
-apiRouter.post('/add', async (req, res) => {
+secureApiRouter.post('/add', async (req, res) => {
     console.log("add API endpoint");
     DB.addWord(req.body);
     const userWords = await DB.getList(req.body.username);
@@ -95,6 +110,8 @@ function setAuthCookie(res, authToken) {
     });
   }
 
-app.listen(port, () => {
+const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+new PeerProxy(httpService);

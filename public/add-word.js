@@ -2,6 +2,9 @@ let username = localStorage.getItem('username');
 const usernameEl = document.querySelector("#username");
 usernameEl.textContent = username ?? 'Anonymous';
 
+let socket;
+configureWebSocket();
+
 // TODO: Would be nice if unsaved input persists across page switches 
 // (e.g. if you accidentally click a different page in the middle of creating a word)
 
@@ -36,6 +39,8 @@ async function saveWord() {
 
         const words = await response.json();
         localStorage.setItem('words', JSON.stringify(words));
+
+        broadcastEvent(username, word_val);
     }
     catch {
         // Saves words locally in case of error
@@ -73,4 +78,36 @@ function switchIcon() {
     icon_idx++;
     icon_idx = icon_idx % icons_list.length;
     iconEl.textContent = icons_list[icon_idx];
+}
+
+// Websockets
+
+function configureWebSocket() {
+    const protocol = window.location.protocol === 'http:'? 'ws' : 'wss';
+    socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+        displayMsg('Connected');
+    }
+    socket.onclose = (event) => {
+        displayMsg('Disconnected');
+    }
+    socket.onmessage = async (event) => {
+        const msg = JSON.parse(await event.data.text());
+        displayMsg(`${msg.user} added "${msg.word}"`);
+    }
+}
+
+// TODO: I'd like a more sophisticated notification system
+function displayMsg(msg) {
+    const chatText = document.querySelector('#message');
+    chatText.innerHTML =
+      `<span class="event">${msg}</span>`;
+}
+
+function broadcastEvent(user, word) {
+    const event = {
+        user: user,
+        word: word,
+    }
+    socket.send(JSON.stringify(event));
 }
