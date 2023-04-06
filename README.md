@@ -274,7 +274,7 @@ Otherwise, sends back a cookie with the user's authtoken in the response
 
 Logout endpoint clears the authtoken cookie
 
-Separate secure API router for post requests to /score and get requests to /scores that checks the authtoken
+Separate secure API router for post requests to /score and get requests to /scores with middleware that checks the authtoken and calls next() if it's valid
 
 ### Simon Websocket
 #### play.js
@@ -311,4 +311,24 @@ Behavior when connection is closed (remove it from list in this case)
   
 Behavior on pong message from client (mark as alive in this case)  
   `ws.on('pong', () => {...});`
+  
+  #### index.js
+  create a new `PeerProxy` using `httpService` returned by `app.listen()`  
+  
+  ### Startup Service Notes
+  just because an API can be accessed on the browser and with curl doesn't mean it has CORS enabled :(
+  
+  uuid = universally unique identifier; unique 128-bit label  
+  can import as package in node to create ids  
+  app uses v4  
+  
+  bcrypt package's hash() and compare() methods can be used for storing and verifying passwords  
+  
+  use `res.cookie(...)` in endpoints to send a cookie with a response  
+  use `res.delete(cookieName)` to clear the cookie  
+  
+  Get a matching entry from the database:  
+  `collection.findOne({ key: value })`
+  
+  
   
