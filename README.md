@@ -375,8 +375,22 @@ Behavior on pong message from client (mark as alive in this case)
           1. Use `Route` component with `path='*'` to capture unknown paths
           1. Create `NotFound` component in app.jsx (optional, could also just redirect to '/')
           1. Test that the React app runs
-      1. Convert to Reac components
+      1. Convert to React components
+          1. copy HTML into return value of component
+          1. class -> className
+          1. delete header/footer
+          1. copy JavaScript and turn functions into inner functions of component
+          1. Create file for CSS and import it
+          1. Create React state variables for stateful objects in component
+          1. Replace DOM query selectors with React state variables
+          1. Move state up to parent components as necessary. (e.g. auth state, username state)
+          1. Create child components as necessary (e.g., for Simon, SimonGame and SimonButton)
+          1. Test as you go
       1. Set up to debug
+          1. Create `.env.local` file
+          1. Add `PORT=3001` to the file
+          1. Modify the package.json file to include the field `"proxy": "http://localhost:3000"` (If a request is made to a service endpoint, forward it to port 3000)
+          1. In gameNotifier.js add the code `if (process.env.NODE_ENV !== 'production') { port = 3000; }` so websocket will use port 3000
       1. Refactor .jsx files into separate .jsx files as needed
       1. Refactor components to take advantage of React specific functionality and to create sub-components
       1. Move webSocket code to gameNotifier.js
