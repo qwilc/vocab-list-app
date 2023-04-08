@@ -358,6 +358,27 @@ Behavior on pong message from client (mark as alive in this case)
       1. replace HTML `class` with JSX `className`
       1. move `main.css` to `app.css` and call ``import `./app.css` ``
       1. Check authentication state
-          1. 
+          1. Create react state variable for auth state
+          1. Call getUser endpoint
+          1. Set state based on result
+          1. Show or hide nav elements based on state (put in second half of && statement)
+      1. Create view components
+          1. Create stub .jsx files for each view
+          1. Place each in own directory
+      1. Create the router
+          1. Run `npm install react-router-dom`
+          1. Include router component in index.jsx and app.jsx
+          1. Create `BrowserRouter` component in index.jsx with `App` component as a child
+          1. Replace `a` elements in app.jsx with `NavLink` components
+          1. Replace `href` with `to`
+          1. Add router definitions (`Routes` component with `Route` child components)
+          1. Use `Route` component with `path='*'` to capture unknown paths
+          1. Create `NotFound` component in app.jsx (optional, could also just redirect to '/')
+          1. Test that the React app runs
+      1. Convert to Reac components
+      1. Set up to debug
+      1. Refactor .jsx files into separate .jsx files as needed
+      1. Refactor components to take advantage of React specific functionality and to create sub-components
+      1. Move webSocket code to gameNotifier.js
   
   
