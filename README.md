@@ -330,5 +330,34 @@ Behavior on pong message from client (mark as alive in this case)
   Get a matching entry from the database:  
   `collection.findOne({ key: value })`
   
+  #### Converting to React
+  1. Reorganize project
+      1. delete node_modules
+      1. move service code to new service directory
+      1. run npm install in service
+      1. test service with node index.js and curl (e.g. curl 'localhost:3000/api/user/joe')
+      1. rename public to old-public (will move code out and then delete old-public)
+  1. Commit as starting place
+  1. Run `npx create-react-app template-react`
+  1. Clean up template code
+      1. uninstall unneeded packages (e.g. stats, test)
+      1. delete unneeded files (e.g. images)
+      1. rename js to jsx (optional, but helps human readability)
+      1. Replace favico.ico with app's icon
+      1. update manifest.json
+      1. clean up index.html file
+  1. Move template-react files
+      1. copy files to project directory
+      1. delete template-react
+      1. run npm install in root of project directory
+  1. Convert to React Bootstrap
+      1. Run `npm install bootstrap react-bootstrap`
+      1. Add `import 'bootstrap/dist/css/bootstrap.min.css';` to enable bootstrap
+  1. Populate App.jsx
+      1. move HTML that's common across pages (i.e. header and footer) into App()
+      1. replace HTML `class` with JSX `className`
+      1. move `main.css` to `app.css` and call ``import `./app.css` ``
+      1. Check authentication state
+          1. 
   
   
