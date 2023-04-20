@@ -1,38 +1,92 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Merriweather&display=swap');
+
+:root {
+    --block-color: powderblue;
+    --footer-height: 30px;
+    --header-height: 100px;
+    --icon-size: 30px;
+    --word-input-width: 200px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto', 'Open Sans', 'sans-serif';
+    font-size: 1.25rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header {
+    flex: 0 var(--header-height);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+menu {
+    flex: 1;
+    display: flex;
+    /*  overwrite Bootstrap so the menu does not wrap */
+    flex-direction: row !important;
+    list-style: none;
+    margin: 0px;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar {
+    background-color: var(--block-color);
+    background-color: var(--block-color);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-brand {
+    padding: 1em;
+    margin: 0px;
+    font-size: x-large;
+}
+
+.nav-item {
+    padding: 0 1em;
+}
+
+main {
+    flex: 1 calc(100vh - var(--header-height) - var(--footer-height));
+    padding-top: 100px;
+}
+
+#name-input {
+    margin: 1em auto;
+    display: block;
+}
+
+#icon-btn {
+    position: absolute;
+    left: calc(50vw + var(--word-input-width) / 2);
+    margin-top:-1rem;
+    font-size: var(--icon-size);
+}
+
+#word-input {
+    width: 200px;
+}
+
+#notes {
+    margin: 1em;
+    width: 30vw;
+    height: 12vh;
+}
+
+footer {
+    flex: 0 var(--footer-height);
+    background-color: var(--block-color);
+    border: 0px;
+}
+
+footer a {
+    float: right;
+}
+
+h1 {
+    font-family: 'Merriweather', 'Georgia', 'serif'; 
+}
+
+#quote {
+    margin-top: -50px;
+    margin-bottom: 50px;
 }
