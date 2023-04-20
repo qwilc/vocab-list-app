@@ -396,3 +396,26 @@ Behavior on pong message from client (mark as alive in this case)
       1. Move webSocket code to gameNotifier.js
   
   
+  ### Startup React Notes
+  Give a component parameters:  
+  `function Component({param}) {...}`  
+  `<Component param={value}`
+  
+  Set up router:  
+  In index.jsx:  
+  ```
+  <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  ```  
+  
+  In app.jsx:  
+  ```
+  function App() {
+      return (
+        ...
+        <Routes>
+          <Route path="path" element={<Component />}>
+        </Routes>
+        ...
+    ```
