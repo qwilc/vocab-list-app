@@ -7,7 +7,7 @@ const { PeerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
-const port = process.argv.length > 2 ? process.argv[2] : 4000;
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.use(express.json());
 
@@ -21,6 +21,7 @@ app.use('/api', apiRouter);
 // create a new authtoken
 apiRouter.post('/auth/register', async (req, res) => {
     // send error response if username already exists
+    console.log("Register endpoint");
     if(await DB.getUser(req.body.username)) {
         res.status(409).send({ msg: 'Existing user' });
         return;

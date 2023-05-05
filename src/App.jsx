@@ -7,16 +7,52 @@ import { AddWord } from './add/add';
 import { Login } from './login/login';
 import { About } from './about/about';
 import { List } from './list/list';
+import { AuthState } from './login/authState';
 
 function App() {
+  const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+  const [authState, setAuthState] = React.useState(AuthState.Unknown);
+
+  React.useEffect(() => {
+    if(username) {
+      getUser(username)
+        .then((user) => {
+          const state = user?.authenticated ? AuthState.Authenticated : AuthState.Unauthenticated;
+          setAuthState(state);
+        });
+    }
+    else {
+      setAuthState(AuthState.Unauthenticated);
+    }
+
+  }, [username]);
+
+  async function getUser(email) {
+    const response = await fetch(`/api/user/${email}`);
+    if (response.status === 200) {
+      return response.json();
+    }
+  
+    return null;
+  }
+
   return (
     <>
       <Header />
       <Routes>
-        <Route path='/' element={<Login/>}/>
-        <Route path='/add-word' element={<AddWord/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/list' element={<List/>}/>
+        <Route path='/' element={
+          <Login
+            username={username}
+            authState={authState}
+            onAuthChange={(username, authState) => {
+              setAuthState(authState);
+              setUsername(username);
+            }}
+          />
+        } />
+        <Route path='/add-word' element={<AddWord />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/list' element={<List />} />
       </Routes>
       <Footer />
     </>
@@ -27,21 +63,21 @@ function Header() {
   return (
     <header className="container-fluid">
       <nav className="navbar fixed-top">
-          <h1 className="navbar-brand">App Title</h1>
-          <menu className="navbar-nav">
-              <li className="nav-item">
-                  <NavLink className="nav-link active" to="add-word">Add Word</NavLink>
-              </li>
-              <li className="nav-item">
-                  <NavLink className="nav-link" to="list">My List</NavLink>
-              </li>
-              <li className="nav-item">
-                  <NavLink className="nav-link" to="about">About</NavLink>
-              </li>
-              <li className="nav-item">
-                  <NavLink className="nav-link" to="">Logout</NavLink>
-              </li>
-          </menu>
+        <h1 className="navbar-brand">App Title</h1>
+        <menu className="navbar-nav">
+          <li className="nav-item">
+            <NavLink className="nav-link active" to="add-word">Add Word</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="list">My List</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="about">About</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="">Logout</NavLink>
+          </li>
+        </menu>
       </nav>
     </header>
   );
