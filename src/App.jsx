@@ -4,17 +4,17 @@ import { NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { AddWord } from './add/add';
-import { Login } from './login/login';
+import { LandingPage } from './landingPage/login';
 import { About } from './about/about';
 import { List } from './list/list';
-import { AuthState } from './login/authState';
+import { AuthState } from './authState';
 
 function App() {
   const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
   const [authState, setAuthState] = React.useState(AuthState.Unknown);
 
   React.useEffect(() => {
-    if(username) {
+    if (username) {
       getUser(username)
         .then((user) => {
           const state = user?.authenticated ? AuthState.Authenticated : AuthState.Unauthenticated;
@@ -32,7 +32,7 @@ function App() {
     if (response.status === 200) {
       return response.json();
     }
-  
+
     return null;
   }
 
@@ -41,7 +41,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={
-          <Login
+          <LandingPage
             username={username}
             authState={authState}
             onAuthChange={(username, authState) => {
@@ -50,6 +50,9 @@ function App() {
             }}
           />
         } />
+        <Route path='/home' element={<UserHome />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/add-word' element={<AddWord />} />
         <Route path='/about' element={<About />} />
         <Route path='/list' element={<List />} />
@@ -63,7 +66,7 @@ function Header() {
   return (
     <header className="container-fluid">
       <nav className="navbar fixed-top">
-        <h1 className="navbar-brand">App Title</h1>
+        <h1 className="navbar-brand">Vocab List</h1>
         <menu className="navbar-nav">
           <li className="nav-item">
             <NavLink className="nav-link active" to="add-word">Add Word</NavLink>

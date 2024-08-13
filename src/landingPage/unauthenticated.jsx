@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
-import { MessageDialog } from './messageDialog';
+import { MessageDialog } from '../messageDialog';
 
 export function Unauthenticated(props) {
     const [username, setUsername] = useState(props.username);
@@ -11,25 +11,25 @@ export function Unauthenticated(props) {
     async function login() {
         loginOrRegister(`/api/auth/login`);
     }
-    
+
     async function register() {
         loginOrRegister(`/api/auth/register`);
     }
 
     async function loginOrRegister(endpoint) {
         const response = await fetch(endpoint, {
-          method: 'post',
-          body: JSON.stringify({ email: username, password: password }),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
+            method: 'post',
+            body: JSON.stringify({ email: username, password: password }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
         });
         if (response?.status === 200) {
-          localStorage.setItem('username', username);
-          props.onLogin(username);
+            localStorage.setItem('username', username);
+            props.onLogin(username);
         } else {
-          const body = await response.json();
-          setDisplayError(`⚠ Error: ${body.msg}`);
+            const body = await response.json();
+            setDisplayError(`⚠ Error: ${body.msg}`);
         }
     }
 
@@ -37,10 +37,10 @@ export function Unauthenticated(props) {
         <>
             <p>Please log in</p>
             <div>
-                <input 
+                <input
                     className='form-control'
-                    type="text" 
-                    id="username" 
+                    type="text"
+                    id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Username"
@@ -56,7 +56,6 @@ export function Unauthenticated(props) {
                 />
             </div>
             <div>
-                {/* TODO: Do the onClick have to be lambdas? */}
                 <Button onClick={() => login()}>
                     Login
                 </Button>
