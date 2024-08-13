@@ -9,3 +9,7 @@ Key Features:
 - Save to personal list
 - Others are notified of newly saved names/words
 - View list of your previously saved words
+
+Future Features:
+- Flashcards
+- Multiple named lists
