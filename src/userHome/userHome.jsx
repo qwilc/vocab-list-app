@@ -8,7 +8,7 @@ export function UserHome({ username, onLogout }) {
     
     return (
         <div>
-          <div className='playerName'>{username}</div>
+          <div className='playerName'>Welcome, {username}</div>
           <Button variant='primary' onClick={() => navigate('/add-word')}>
             Add a Word
           </Button>

@@ -1,41 +1,35 @@
-import { useState } from 'react';
+import React from 'react';
 
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from '../messageDialog';
 
-export function Unauthenticated(props) {
-    const [username, setUsername] = useState(props.username);
+export function Login({ onLoginSuccess, service }) {
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [displayError, setDisplayError] = useState(null);
 
-    async function login() {
-        loginOrRegister(`/api/auth/login`);
-    }
+    const navigate = useNavigate();
 
-    async function register() {
-        loginOrRegister(`/api/auth/register`);
-    }
-
-    async function loginOrRegister(endpoint) {
-        const response = await fetch(endpoint, {
-            method: 'post',
-            body: JSON.stringify({ email: username, password: password }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        });
-        if (response?.status === 200) {
-            localStorage.setItem('username', username);
-            props.onLogin(username);
-        } else {
-            const body = await response.json();
-            setDisplayError(`⚠ Error: ${body.msg}`);
+    const tryLogin = async (username, password) => {
+        const response = await service.login(username, password);
+        if (response.ok) {
+            onLoginSuccess(username);
+        }
+        else if (response.status === 401) {
+            setDisplayError("That username and password combination is incorrect.");
+        }
+        else {
+            setDisplayError("An error occurred. Please try again later.")
         }
     }
 
+    // TODO: make error messages be not a modal
+
     return (
-        <>
-            <p>Please log in</p>
+        <div>
+            <h2>Log in</h2>
             <div>
                 <input
                     className='form-control'
@@ -56,15 +50,15 @@ export function Unauthenticated(props) {
                 />
             </div>
             <div>
-                <Button onClick={() => login()}>
+                <Button onClick={() => tryLogin(username, password)}>
                     Login
                 </Button>
-                <Button onClick={() => register()}>
+                <Button variant="secondary" onClick={() => navigate('/register')}>
                     Register
                 </Button>
             </div>
 
             <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
-        </>
-    )
+        </div>
+    );
 }

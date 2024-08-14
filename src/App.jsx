@@ -1,25 +1,27 @@
 import React from 'react';
 
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { AddWord } from './add/add';
-import { LandingPage } from './landingPage/login';
+import { Login } from './loginAndRegister/login';
+import { Register } from './loginAndRegister/register';
+import { UserHome } from './userHome/userHome';
+import { WordListService } from './service/wordListService';
 import { About } from './about/about';
 import { List } from './list/list';
 import { AuthState } from './authState';
 
 function App() {
-  const [username, setUsername] = React.useState(localStorage.getItem('username') || '');
+  const [username, setUsername] = React.useState(localStorage.getItem('username') || null);
   const [authState, setAuthState] = React.useState(AuthState.Unknown);
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     if (username) {
-      getUser(username)
-        .then((user) => {
-          const state = user?.authenticated ? AuthState.Authenticated : AuthState.Unauthenticated;
-          setAuthState(state);
-        });
+      const latestAuthState = (new WordListService()).getAuthState(username);
+      setAuthState(latestAuthState);
     }
     else {
       setAuthState(AuthState.Unauthenticated);
@@ -27,31 +29,36 @@ function App() {
 
   }, [username]);
 
-  async function getUser(email) {
-    const response = await fetch(`/api/user/${email}`);
-    if (response.status === 200) {
-      return response.json();
-    }
+  // TODO: there's gotta be a better way. also it causes errors
+  // const currentPath = useLocation().pathname;
 
-    return null;
-  }
+  // if (currentPath !== '/login' && currentPath !== '/register' && authState !== AuthState.Authenticated) {
+  //   navigate('/login');
+  // }
+  // else if ((currentPath === '/login' || currentPath === '/register') && authState === AuthState.Authenticated) {
+  //   navigate('/home');
+  // }
 
   return (
     <>
       <Header />
       <Routes>
-        <Route path='/' element={
-          <LandingPage
-            username={username}
-            authState={authState}
-            onAuthChange={(username, authState) => {
-              setAuthState(authState);
+        <Route path='/login?' element={
+          <Login
+            service={new WordListService()}
+            onLogin={(username) => {
               setUsername(username);
-            }}
-          />
+              setAuthState(AuthState.Authenticated);
+            }} />
         } />
-        <Route path='/home' element={<UserHome />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/home' element={
+          <UserHome
+            username={username}
+            onLogout={() => {
+              setAuthState(AuthState.Unauthenticated);
+              setUsername(null);
+            }} />
+        } />
         <Route path='/register' element={<Register />} />
         <Route path='/add-word' element={<AddWord />} />
         <Route path='/about' element={<About />} />
@@ -64,8 +71,8 @@ function App() {
 
 function Header() {
   return (
-    <header className="container-fluid">
-      <nav className="navbar fixed-top">
+    <header>
+      <nav className="navbar sticky-top">
         <h1 className="navbar-brand">Vocab List</h1>
         <menu className="navbar-nav">
           <li className="nav-item">
@@ -88,7 +95,7 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="container-fluid">
+    <footer className="container-fluid fixed-bottom">
       <span>Quincy Wilcox</span>
       <NavLink to="https://github.com/qwilc/startup">GitHub</NavLink>
     </footer>
