@@ -1,6 +1,6 @@
 import { AuthState } from "../authState";
 
-export class WordListService {
+class WordListService {
 	async getUser(username) {
 		const response = await fetch(`/api/user/${username}`);
 		if (response.status === 200) {
@@ -40,5 +40,6 @@ export class WordListService {
 			method: 'delete',
 		});
 	}
-
 }
+
+export default WordListService;
