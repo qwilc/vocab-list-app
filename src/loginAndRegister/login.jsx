@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import MyButton from '../sharedComponents/MyButton';
+import MyForm from '../sharedComponents/MyForm';
+import MyTextInput from '../sharedComponents/MyTextInput';
 import { MessageDialog } from '../messageDialog';
-import MyForm from '../sharedComponents/myForm';
+import { FormGroup } from 'react-bootstrap';
 
 function Login({ onLoginSuccess, service }) {
 	const [username, setUsername] = useState('');
@@ -25,11 +27,32 @@ function Login({ onLoginSuccess, service }) {
 	}
 
 	// TODO: make error messages be not a modal
+	// change buttons for navigating between login/register
 
 	return (
 		<>
-			<MyForm title="Log in">
-				<div>
+			<MyForm title="Log in" onSubmit={tryLogin}>
+				<MyTextInput
+					id="username"
+					type="text"
+					label="Username"
+					placeholder="Enter username"
+				/>
+				<MyTextInput
+					id="password"
+					type="text"
+					label="Password"
+					placeholder="Enter password"
+				/>
+				<MyButton type="submit" isInline={false}>
+					Login
+				</MyButton>
+				<MyButton variant="secondary" onClick={() => navigate('/register')}>
+					Create an account
+				</MyButton>
+
+
+				{/* <div>
 					<input
 						className='form-control'
 						type="text"
@@ -55,7 +78,7 @@ function Login({ onLoginSuccess, service }) {
 					<Button variant="secondary" onClick={() => navigate('/register')}>
 						Register
 					</Button>
-				</div>
+				</div> */}
 			</MyForm>
 
 			<MessageDialog message={displayError} onHide={() => setDisplayError(null)} />

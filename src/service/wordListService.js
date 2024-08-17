@@ -1,4 +1,4 @@
-import { AuthState } from "../authState";
+import AuthState from "../authState";
 
 class WordListService {
 	async getUser(username) {
