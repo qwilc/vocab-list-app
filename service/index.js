@@ -1,8 +1,11 @@
+const DummyDB = require('./dummyDatabase.js');
+
+const DB = new DummyDB();
+
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
-const DB = require('./database.js');
 const { PeerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
@@ -27,8 +30,10 @@ apiRouter.post('/auth/register', async (req, res) => {
         return;
     }
 
+	const passwordHash = await bcrypt.hash(req.body.password, 10);
+
     // creates user and adds to database
-    const user = DB.createUser(req.body.username, req.body.password);
+    const user = DB.createUser(req.body.username, passwordHash);
 
     setAuthCookie(res, user.token);
 
