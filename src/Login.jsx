@@ -1,22 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MyButton from '../sharedComponents/MyButton';
-import MyForm from '../sharedComponents/MyForm';
-import MyTextInput from '../sharedComponents/MyTextInput';
-import { MessageDialog } from '../messageDialog';
-import { FormGroup } from 'react-bootstrap';
+import MyButton from './sharedComponents/MyButton';
+import MyForm from './sharedComponents/MyForm';
+import MyTextInput from './sharedComponents/MyTextInput';
+import { MessageDialog } from './messageDialog';
 
-function Login({ onLoginSuccess, service }) {
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+function Login({ onLogin, service }) {
 	const [displayError, setDisplayError] = useState(null);
 
 	const navigate = useNavigate();
 
-	const tryLogin = async (username, password) => {
+	// TODO: how to handle form submit?
+	const tryLogin = async (event) => {
+		event.stopPropagation();
+		event.preventDefault();
+		const username = event.target[0].value;
+		const password = event.target[1].value;
+
 		const response = await service.login(username, password);
 		if (response.ok) {
-			onLoginSuccess(username);
+			onLogin(username);
 		}
 		else if (response.status === 401) {
 			setDisplayError("That username and password combination is incorrect.");

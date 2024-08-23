@@ -3,17 +3,35 @@ import { NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-d
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import AddWord from './addWord/AddWord';
-import Login from './loginAndRegister/Login';
-import Register from './loginAndRegister/Register';
+import Login from './Login';
+import Register from './Register';
 import UserHome from './userHome/UserHome';
 import WordListService from './service/wordListService';
 import About from './about/About';
-import List from './wordList/WordList';
+import WordList from './wordList/WordList';
 import AuthState from './authState';
+import Flashcards from './flashcards/Flashcards';
 
 function App() {
 	const [username, setUsername] = useState(localStorage.getItem('username') || null);
 	const [authState, setAuthState] = useState(AuthState.Unknown);
+	const words = [ // TODO get actual data
+		{
+			word: "a",
+			tags: ["a", "word"],
+			notes: "note a",
+		},
+		{
+			word: "b",
+			tags: ["b", "word"],
+			notes: "note b",
+		},
+		{
+			word: "c",
+			tags: ["c", "word"],
+			notes: "note c",
+		},
+	];
 
 	useEffect(() => {
 		if (username) {
@@ -25,16 +43,6 @@ function App() {
 		}
 
 	}, [username]);
-
-	// TODO: there's gotta be a better way. also it causes errors
-	// const currentPath = useLocation().pathname;
-
-	// if (currentPath !== '/login' && currentPath !== '/register' && authState !== AuthState.Authenticated) {
-	//   navigate('/login');
-	// }
-	// else if ((currentPath === '/login' || currentPath === '/register') && authState === AuthState.Authenticated) {
-	//   navigate('/home');
-	// }
 
 	return (
 		<>
@@ -59,7 +67,8 @@ function App() {
 				<Route path='/register' element={<Register />} />
 				<Route path='/add-word' element={<AddWord />} />
 				<Route path='/about' element={<About />} />
-				<Route path='/list' element={<List />} />
+				<Route path='/list' element={<WordList words={words} />} />
+				<Route path='/flashcards' element={<Flashcards words={words} />} />
 			</Routes>
 			<Footer />
 		</>
@@ -77,6 +86,9 @@ function Header() {
 					</li>
 					<li className="nav-item">
 						<NavLink className="nav-link" to="list">My List</NavLink>
+					</li>
+					<li className="nav-item">
+						<NavLink className="nav-link" to="flashcards">Flashcards</NavLink>
 					</li>
 					<li className="nav-item">
 						<NavLink className="nav-link" to="about">About</NavLink>

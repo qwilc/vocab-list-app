@@ -4,7 +4,7 @@ import { WithContext as ReactTags, SEPARATORS } from "react-tag-input"
 
 function MyTagInput({ id, type, label, placeholder, text }) {
 	// TODO: make tag input work and format it
-	const [tags, setTags] = useState ([]);
+	const [tags, setTags] = useState([]);
 
 	const handleDelete = (index) => {
 		setTags(tags.filter((_, i) => i !== index));

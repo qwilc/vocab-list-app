@@ -1,7 +1,7 @@
-import MyForm from "../sharedComponents/MyForm";
-import MyTextInput from "../sharedComponents/MyTextInput";
+import MyForm from "./sharedComponents/MyForm";
+import MyTextInput from "./sharedComponents/MyTextInput";
 import { useNavigate } from "react-router-dom";
-import MyButton from "../sharedComponents/MyButton";
+import MyButton from "./sharedComponents/MyButton";
 
 function Register({ service, onSuccess }) {
 	const navigate = useNavigate();
