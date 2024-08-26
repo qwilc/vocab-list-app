@@ -4,15 +4,21 @@ const DB = new DummyDB();
 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 const express = require('express');
 const app = express();
 const { PeerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 3001;
 
 app.use(express.json());
+
+let corsOptions = {
+	origin: ['http://localhost:3000'],
+}
+app.use(cors(corsOptions))
 
 app.use(cookieParser());
 
